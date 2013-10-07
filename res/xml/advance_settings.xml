@@ -35,6 +35,12 @@
             android:targetClass="org.omnirom.omniswitch.SettingsActivity" />
    	</PreferenceScreen>
 
+	<PreferenceScreen
+        android:key="gesture_anywhere"
+        android:fragment="com.android.settings.chameleonos.labs.gestureanywhere.GestureAnywhereSettings"
+        android:icon="@drawable/ic_settings_gesture_anywhere"
+        android:title="@string/gesture_anywhere_title" />
+
 	<CheckBoxPreference
         android:key="flip_qs_tiles"
         android:title="@string/flip_qs_tiles_title"
