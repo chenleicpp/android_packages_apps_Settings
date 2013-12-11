@@ -24,4 +24,8 @@
     <string name="see_through_title">Lockscreen Blur</string>
     <string name="see_through_summary">Blurs and display the content behind your lockscreen, your data may be visible to those around you</string>
 
+	<!-- QS and navring Power menu -->
+    <string name="title_tile_power">Power Menu</string> 
+    <string name="navring_action_power_menu">Power menu</string>
+
 </resources>
