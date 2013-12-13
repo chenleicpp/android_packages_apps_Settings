@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- QuickSettings fliptiles -->
+    <string name="flip_qs_tiles_title">Quick Settings Flip tiles</string>
+    <string name="flip_qs_tiles_summary">Quick Settings flips the tiles on touch</string>
+
+</resources>

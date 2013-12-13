@@ -69,7 +69,7 @@
 
         </PreferenceCategory>
 
-    <PreferenceCategory
+        <PreferenceCategory
         android:key="pref_dynamic_tiles"
         android:title="@string/title_dynamic_tiles" >
 
