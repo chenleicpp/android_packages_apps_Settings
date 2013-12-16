@@ -20,4 +20,6 @@
 	<!-- Advance -->
 	<string name="advance_settings_title">私人定制</string>
 
+	<string name="navbar_enable_bar">开启虚拟按键</string>
+
 </resources>
