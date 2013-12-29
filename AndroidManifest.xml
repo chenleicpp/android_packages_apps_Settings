@@ -1971,6 +1971,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".mahdi.lockscreen-notifications.LockscreenNotifications" />
+
         <receiver android:name=".widget.SettingsAppWidgetProvider"
                 android:label="@string/gadget_title"
                 android:exported="false"
