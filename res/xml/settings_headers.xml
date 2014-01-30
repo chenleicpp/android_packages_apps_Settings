@@ -94,6 +94,13 @@
         android:fragment="com.android.settings.cyanogenmod.SystemUiSettings"
         android:title="@string/system_settings_title" />
 
+	<!--Advance-->
+	<header
+        android:id="@+id/advance_settings"
+        android:fragment="com.android.settings.paranoid.AdvanceSettings"
+        android:icon="@drawable/ic_settings_mahdi"
+        android:title="@string/advance_settings_title" />
+
     <!-- DEVICE -->
     <header android:id="@+id/device_section"
         android:title="@string/header_category_device" />
