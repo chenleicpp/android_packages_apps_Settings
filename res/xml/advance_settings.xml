@@ -26,4 +26,15 @@
         android:icon="@drawable/ic_settings_halo" 
         android:title="@string/halo_settings_title" />
 
+	<PreferenceScreen
+        android:key="quicksettings_tiles_style"
+        android:fragment="com.android.settings.crdroid.QuickSettingsTilesStyle"
+        android:title="@string/quicksettings_tiles_style"
+        android:summary="@string/summary_quicksettings_tiles_style" />
+
+	<PreferenceScreen
+        android:key="recents_panel"
+        android:fragment="com.android.settings.crdroid.RecentsPanelSettings"
+        android:title="@string/recents_panel_settings_title" />  
+
 </PreferenceScreen>
