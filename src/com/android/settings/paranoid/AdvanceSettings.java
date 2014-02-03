@@ -67,21 +67,39 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
 
 	@Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        return true;
+        // If we didn't handle it, let preferences handle it.
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
+    @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mStatusBarTraffic) {
-            boolean value = (Boolean) objValue;
-            Settings.System.putInt(resolver,
-                Settings.System.STATUS_BAR_TRAFFIC, value ? 1 : 0);
+
+            // Increment the state and then update the label
+            int intState = Settings.System.getInt(resolver, Settings.System.STATUS_BAR_TRAFFIC, 0);
+            intState++;
+            intState = setStatusBarTrafficSummary(intState);
+            Settings.System.putInt(resolver, Settings.System.STATUS_BAR_TRAFFIC, intState);
+            if (intState > 1) {return false;}
         } else {
             return false;
         }
-
         return true;
-    }  
+    }
+
+    private int setStatusBarTrafficSummary(int intState) {
+        // These states must match com.android.systemui.statusbar.policy.Traffic
+        if (intState == 1) {
+            mStatusBarTraffic.setSummary(R.string.show_network_speed_bits);
+        } else if (intState == 2) {
+            mStatusBarTraffic.setSummary(R.string.show_network_speed_bytes);
+        } else {
+            mStatusBarTraffic.setSummary(R.string.show_network_speed_summary);
+            return 0;
+        }
+        return intState;
+    }
 
     @Override
     public void onResume() {
