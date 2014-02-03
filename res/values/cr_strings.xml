@@ -102,5 +102,9 @@
     <string name="tiles_per_row_title">Tiles per row</string>
     <string name="tiles_per_row_duplicate_landscape_title">Scale landscape quantity</string>
     <string name="tiles_per_row_duplicate_landscape_summary">Landscape view doubles tiles per row quantity</string>
+
+	<!-- Network speed -->
+	<string name="show_network_speed">Network speed indicator</string>
+	<string name="show_network_speed_summary">Show network speed in statusbar</string>
     
 </resources>

@@ -22,24 +22,66 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.CheckBoxPreference;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.view.IWindowManager;
-
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.preference.PreferenceGroup;
+import android.preference.PreferenceScreen;
+import android.provider.MediaStore;
 
-public class AdvanceSettings extends SettingsPreferenceFragment {
 
-    private static final String TAG = "AdvanceSettings";      
+public class AdvanceSettings extends SettingsPreferenceFragment implements
+        Preference.OnPreferenceChangeListener{
+
+    private static final String TAG = "AdvanceSettings";   
+
+	private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
+
+	private CheckBoxPreference mStatusBarTraffic;   
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.advance_settings);                
-    }    
+        addPreferencesFromResource(R.xml.advance_settings);   
+
+		PreferenceScreen prefSet = getPreferenceScreen();
+        ContentResolver resolver = getActivity().getContentResolver();
+
+		mStatusBarTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC);
+        mStatusBarTraffic.setChecked(Settings.System.getInt(resolver,
+            Settings.System.STATUS_BAR_TRAFFIC, 0) == 1);
+        mStatusBarTraffic.setOnPreferenceChangeListener(this);             
+    }  
+
+	@Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        return true;
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
+        if (preference == mStatusBarTraffic) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(resolver,
+                Settings.System.STATUS_BAR_TRAFFIC, value ? 1 : 0);
+        } else {
+            return false;
+        }
+
+        return true;
+    }  
 
     @Override
     public void onResume() {
