@@ -60,9 +60,10 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
         ContentResolver resolver = getActivity().getContentResolver();
 
 		mStatusBarTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC);
-        mStatusBarTraffic.setChecked(Settings.System.getInt(resolver,
-            Settings.System.STATUS_BAR_TRAFFIC, 0) == 1);
-        mStatusBarTraffic.setOnPreferenceChangeListener(this);             
+        int intState = Settings.System.getInt(resolver, Settings.System.STATUS_BAR_TRAFFIC, 0);
+        intState = setStatusBarTrafficSummary(intState);
+        mStatusBarTraffic.setChecked(intState > 0);
+        mStatusBarTraffic.setOnPreferenceChangeListener(this);        
     }  
 
 	@Override
