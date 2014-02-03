@@ -23,7 +23,6 @@
     <PreferenceScreen
         android:id="@+id/halo_settings"
         android:fragment="com.android.settings.crdroid.Halo"
-        android:icon="@drawable/ic_settings_halo" 
         android:title="@string/halo_settings_title" />
 
 	<PreferenceScreen
