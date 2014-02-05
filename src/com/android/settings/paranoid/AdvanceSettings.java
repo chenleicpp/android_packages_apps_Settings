@@ -47,8 +47,10 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
     private static final String TAG = "AdvanceSettings";   
 
 	private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
+    private static final String PREF_FLIP_QS_TILES = "flip_qs_tiles";
 
-	private CheckBoxPreference mStatusBarTraffic;   
+	private CheckBoxPreference mStatusBarTraffic; 
+    private CheckBoxPreference mFlipQsTiles;  
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,12 +65,22 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
         int intState = Settings.System.getInt(resolver, Settings.System.STATUS_BAR_TRAFFIC, 0);
         intState = setStatusBarTrafficSummary(intState);
         mStatusBarTraffic.setChecked(intState > 0);
-        mStatusBarTraffic.setOnPreferenceChangeListener(this);        
+        mStatusBarTraffic.setOnPreferenceChangeListener(this);  
+
+		mFlipQsTiles = (CheckBoxPreference) findPreference(PREF_FLIP_QS_TILES);
+        mFlipQsTiles.setChecked(Settings.System.getInt(resolver,
+                Settings.System.QUICK_SETTINGS_TILES_FLIP, 0) == 1);      
     }  
 
 	@Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        // If we didn't handle it, let preferences handle it.
+        ContentResolver resolver = getContentResolver();
+        if (preference == mFlipQsTiles) {
+            Settings.System.putInt(resolver,
+                    Settings.System.QUICK_SETTINGS_TILES_FLIP,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
+            return true;
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
