@@ -87,13 +87,6 @@
             android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
 
-    <!-- TRDS -->
-    <header
-        android:id="@+id/theme_settings"
-        android:fragment="com.android.settings.crdroid.themes.ThemeSettings"
-        android:icon="@drawable/ic_settings_trds"
-        android:title="@string/theme_settings_title" />
-
     <!-- System UI -->
     <header
         android:id="@+id/system_settings"
@@ -107,6 +100,13 @@
         android:fragment="com.android.settings.paranoid.AdvanceSettings"
         android:icon="@drawable/ic_settings_mahdi"
         android:title="@string/advance_settings_title" />
+
+	<!-- TRDS -->
+    <header
+        android:id="@+id/theme_settings"
+        android:fragment="com.android.settings.crdroid.themes.ThemeSettings"
+        android:icon="@drawable/ic_settings_trds"
+        android:title="@string/theme_settings_title" />
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"
