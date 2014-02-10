@@ -73,4 +73,12 @@
         android:key="clock_style_pref"
         android:title="@string/status_bar_clock" />
 
+	<ListPreference
+		android:key="smart_pulldown"
+		android:title="@string/smart_pulldown_title"
+		android:summary="@string/smart_pulldown_summary"
+		android:entries="@array/smart_pulldown_entries"
+		android:entryValues="@array/smart_pulldown_values"
+		android:persistent="false" />
+
 </PreferenceScreen>

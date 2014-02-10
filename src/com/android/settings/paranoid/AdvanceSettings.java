@@ -39,6 +39,9 @@ import android.content.IntentFilter;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
+import android.view.DisplayInfo;
+import android.view.WindowManager;
 
 
 public class AdvanceSettings extends SettingsPreferenceFragment implements
@@ -48,9 +51,16 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
 
 	private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
     private static final String PREF_FLIP_QS_TILES = "flip_qs_tiles";
+	private static final String SMART_PULLDOWN = "smart_pulldown";
+
+	// Device types
+    private static final int DEVICE_PHONE  = 0;
+    private static final int DEVICE_HYBRID = 1;
+    private static final int DEVICE_TABLET = 2;
 
 	private CheckBoxPreference mStatusBarTraffic; 
     private CheckBoxPreference mFlipQsTiles;  
+	private ListPreference mSmartPulldown;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +79,18 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
 
 		mFlipQsTiles = (CheckBoxPreference) findPreference(PREF_FLIP_QS_TILES);
         mFlipQsTiles.setChecked(Settings.System.getInt(resolver,
-                Settings.System.QUICK_SETTINGS_TILES_FLIP, 0) == 1);      
+                Settings.System.QUICK_SETTINGS_TILES_FLIP, 0) == 1);  
+		mSmartPulldown = (ListPreference) findPreference(SMART_PULLDOWN);  
+
+		if (isPhone(getActivity())) {
+            int smartPulldown = Settings.System.getInt(resolver,
+                    Settings.System.QS_SMART_PULLDOWN, 0);
+            mSmartPulldown.setValue(String.valueOf(smartPulldown));
+            updateSmartPulldownSummary(smartPulldown);
+            mSmartPulldown.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(mSmartPulldown);
+        }  
     }  
 
 	@Override
@@ -95,6 +116,11 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
             intState = setStatusBarTrafficSummary(intState);
             Settings.System.putInt(resolver, Settings.System.STATUS_BAR_TRAFFIC, intState);
             if (intState > 1) {return false;}
+        } else if (preference == mSmartPulldown) {
+            int smartPulldown = Integer.valueOf((String) objValue);
+            Settings.System.putInt(resolver, Settings.System.QS_SMART_PULLDOWN,
+                    smartPulldown);
+            updateSmartPulldownSummary(smartPulldown);
         } else {
             return false;
         }
@@ -112,6 +138,36 @@ public class AdvanceSettings extends SettingsPreferenceFragment implements
             return 0;
         }
         return intState;
+    }
+
+	private void updateSmartPulldownSummary(int i) {
+        if (i == 0) {
+            mSmartPulldown.setSummary(R.string.smart_pulldown_off);
+        } else if (i == 1) {
+            mSmartPulldown.setSummary(R.string.smart_pulldown_dismissable);
+        } else if (i == 2) {
+            mSmartPulldown.setSummary(R.string.smart_pulldown_persistent);
+        }
+    }
+
+    private static int getScreenType(Context con) {
+        WindowManager wm = (WindowManager) con.getSystemService(Context.WINDOW_SERVICE);
+        DisplayInfo outDisplayInfo = new DisplayInfo();
+        wm.getDefaultDisplay().getDisplayInfo(outDisplayInfo);
+        int shortSize = Math.min(outDisplayInfo.logicalHeight, outDisplayInfo.logicalWidth);
+        int shortSizeDp =
+            shortSize * DisplayMetrics.DENSITY_DEFAULT / outDisplayInfo.logicalDensityDpi;
+        if (shortSizeDp < 600) {
+            return DEVICE_PHONE;
+        } else if (shortSizeDp < 720) {
+            return DEVICE_HYBRID;
+        } else {
+            return DEVICE_TABLET;
+        }
+    }
+
+    public static boolean isPhone(Context con) {
+        return getScreenType(con) == DEVICE_PHONE;
     }
 
     @Override
