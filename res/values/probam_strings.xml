@@ -3,22 +3,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- QuickSettings fliptiles -->
-
     <string name="flip_qs_tiles_title">Quick Settings Flip tiles</string>
     <string name="flip_qs_tiles_summary">Quick Settings flips the tiles on touch</string>
-
-    <!-- Powersaver settings -->
-    <string name="power_saver_settings_title">Power Saver</string>
-    <string name="power_saver_settings_summary">Optimize battery life</string>
-    <string name="power_saver_toggles_mobile_title">Mobile networks</string>
-    <string name="power_saver_toggles_location_title">Location</string>
-    <string name="power_saver_toggles_performance_title">Performance</string>
-    <string name="power_saver_toggles_gps_title">Disable GPS</string>
-    <string name="power_saver_toggles_gps_summary">GPS based location service will be disabled on screen off</string>
-    <string name="power_saver_toggles_mobile_data_title">Disable mobile data</string>
-    <string name="power_saver_toggles_mobile_data_summary">Mobile data will be disabled on screen off</string>
-    <string name="power_saver_toggles_cpu_title">CPU power</string>
-    <string name="power_saver_toggles_cpu_summary">Conserve CPU usage</string>
 
     <!-- Gesture Anywhere -->
     <string name="gesture_anywhere_title">Gesture Anywhere</string>
